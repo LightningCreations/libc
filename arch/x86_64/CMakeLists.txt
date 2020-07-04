@@ -1,5 +1,10 @@
 enable_language(ASM)
 
-add_library(c-arch-x86_64 OBJECT syscall.s exit.s)
-set_target_properties(c-arch-x86_64 PROPERTIES POSITION_IDENPENDENT_CODE ON)
+add_library(c-arch-x86_64 OBJECT syscall.S raise.S syscalls.c)
+set_target_properties(c-arch-x86_64 PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
+if(NOT LCNIX_LIBC_NOSHARED)
 add_subdirectory(ld)
+endif()
+
+add_subdirectory(crt)

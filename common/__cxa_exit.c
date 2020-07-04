@@ -21,13 +21,13 @@ void __cxa_at_exit(void(*finalizer)(void*),void* obj,void* dso_base){
 
 void __cxa_finalize(void* dso_base){
     for(unsigned i = 0;i<at_exitc;i++)
-        if((at_exits[i].finalizer&&(!dso_base))||at_exits[i].dso_base==dso_base){
+        if(at_exits[i].finalizer&&((!dso_base)||at_exits[i].dso_base==dso_base)){
             at_exits[i].finalizer(at_exits[i].obj);
             at_exits[i].finalizer = 0;
         }
 
 }
 
-void atexit(void(*at_exit)()){
-    __cxa_at_exit(at_exit,0,0);
+void atexit(void(*at_exit)(void)){
+    __cxa_at_exit((void(*)(void*))at_exit,0,0);
 }

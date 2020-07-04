@@ -1,5 +1,7 @@
 .text
 
+#include <asm/unistd.h>
+
 .global syscall
 syscall:
     # Bump all arguments by one, and move the first (the syscall number) into rax
@@ -15,9 +17,16 @@ syscall:
     js .seterrno
     ret
     .seterrno:
-    lea __errno(%rip), %rsi
+    mov __errno@GOTPCREL(%rip), %rsi
     neg %rdi
     mov %rdi,(%rsi)
-
     ret
 
+.global _Exit
+.global _exit
+
+_Exit:
+_exit:
+    mov $__NR_exit,%rax
+    syscall
+    ud2 // For good luck

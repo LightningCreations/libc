@@ -5,8 +5,9 @@ include_directories(SYSTEM include)
 
 add_subdirectory(arch/${LCNIX_TARGET_ARCH})
 add_subdirectory(common)
-add_subdirectory(crt)
+if(NOT LCNIX_LIBC_NOSHARED)
 add_subdirectory(ld)
+endif()
 
 add_subdirectory(libm)
 add_subdirectory(libgcc)
@@ -23,5 +24,5 @@ target_link_options(c-shared PRIVATE "-nodefaultlibs")
 target_link_libraries(c-shared PRIVATE crt)
 
 
-install(TARGETS c-static c-shared crt EXPORT libc LIBRARY DESTINATION lib OBJECTS DESTINATION lib)
+install(TARGETS c-static c-shared LIBRARY DESTINATION lib OBJECTS DESTINATION lib)
 install(DIRECTORY include DESTINATION . FILES_MATCHING PATTERN "*.h")
