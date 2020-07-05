@@ -1,8 +1,4 @@
 
+set(LCLIBC_LD_SYSROOT "${CMAKE_INSTALL_PREFIX}" CACHE PATH "Sets the sysroot for the searchpaths used by the dynamic linker")
+set(LCLIBC_LD_DEFAULT_SEARCH_PATH /usr/local/lib /usr/lib /lib CACHE PATH "Sets the search directory and order for the default search path (IE. when ld.so.conf is unavailable)")
 
-
-add_library(ld-lcnix SHARED ld-lcnix.c $<TARGET_OBJECTS:ld-lcnix-${LCNIX_TARGET_ARCH}>)
-set_target_properties(ld-lcnix PROPERTIES PREFIX "" OUTPUT_NAME "ld-lcnix-${LCNIX_TARGET_ARCH}"
-        SOVERSION "1.0")
-target_link_libraries(ld-lcnix c-static crt)
-target_link_options(ld-lcnix PRIVATE -static -nostdlib -Wl,-e,_start)

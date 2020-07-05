@@ -7,4 +7,11 @@
 
 long syscall(long syscallno,...);
 
+void _exit(int code);
+
+
+#include <bits/sys_declare.inc>
+
+#include <bits/unistd.inc>
+
 #endif //LCNIX_UNISTD_H

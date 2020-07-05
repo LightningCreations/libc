@@ -1,7 +1,7 @@
 
 enable_language(C)
 
-include_directories(SYSTEM include)
+include_directories(SYSTEM include arch/${LCNIX_TARGET_ARCH}/include)
 
 add_subdirectory(arch/${LCNIX_TARGET_ARCH})
 add_subdirectory(common)

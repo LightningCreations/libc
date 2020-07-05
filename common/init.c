@@ -4,7 +4,7 @@
 
 char** __environ;
 
-int __errno;
+long __errno;
 
 struct _ExceptBlock{
     _Bool _has_except;
@@ -29,7 +29,8 @@ _Noreturn void __libc_start_main(int(*main)(int,char**,char**),int argc,char** a
     char** envp = &argv[argc+1];
     __environ = envp;
     void* dso_base = 0; // Set this up later
-    _init();
+    if(_init)
+        _init();
     __cxa_at_exit((void(*)(void*))_fini,0,0);
     // For now, we don't need to deal with _rtld_fini
     // FIXME when called from a dso how the heck do we get the dso base address to pass to __cxa_at_exit
