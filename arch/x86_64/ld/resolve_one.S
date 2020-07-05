@@ -3,8 +3,8 @@
 .global _ld_sym_resolve
 
 _ld_sym_resolve:
-    xchg %rdi,(%rsp) ; Identifier, stored at _GLOBAL_OFFSET_TABLE_[1], this is a pointer to the DSO structure
-    xchg %rsi,8(%rsp) ; Index
+    xchg %rdi,(%rsp)
+    xchg %rsi,8(%rsp)
     pushq %rax
     callq resolve_symbol
     mov %rax,%r11

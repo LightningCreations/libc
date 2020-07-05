@@ -4,7 +4,7 @@
 
 char** __environ;
 
-long __errno;
+__thread long __errno;
 
 struct _ExceptBlock{
     _Bool _has_except;
@@ -17,7 +17,7 @@ struct _ExceptBlock{
 _Noreturn void abort(void);
 
 extern void(__attribute__((noreturn))*__terminate_fn)(void)__attribute__((weak));
-struct _ExceptBlock __base_exception_block = {._has_except = 0};
+__thread struct _ExceptBlock __base_exception_block = {._has_except = 0};
 
 void __cxa_at_exit(void(*__finalize)(void*),void* obj,void* dso_base);
 

@@ -4,7 +4,7 @@
 
 #include <asm/unistd.h>
 
-extern long __errno;
+extern __thread long __errno;
 
 #define __stringify0(v) #v
 #define __stringify1(v) __stringify0(v)

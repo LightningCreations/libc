@@ -94,20 +94,11 @@ _start:
 	   which grow downwards).  */
 	pushq %rsp
 
-	// Setup our own GOT so __libc_start_main@plt can resolve
-	lea _GLOBAL_OFFSET_TABLE_(%rip),%r11
-    lea _DYNAMIC(%rip),%r10
-    lea _ld_sym_resolve(%rip),%r12
-    lea _DSO_ROOT(%rip),%r13
-    mov %rs0,(%r11)
-    mov %r13,8(%r11)
-    mov %r12,16(%r11)
-
 	/* Pass address of our own entry points to .fini and .init.  */
-	lea __libc_csu_fini(%rip), %r8
-    lea __libc_csu_init(%rip), %rcx
+	mov __libc_csu_fini@GOTPCREL(%rip), %r8
+    mov __libc_csu_init@GOTPCREL(%rip), %rcx
 
-	lea main(%rip), %rdi
+	mov main@GOTPCREL(%rip), %rdi
 	/* Call the user's main function, and exit with its value.
 	   But let the libc call main.  Since __libc_start_main in
 	   libc.so is called very early, lazy binding isn't relevant
@@ -115,7 +106,7 @@ _start:
 	   to PLT slot.  In case of static executable, ld in binutils
 	   2.26 or above can convert indirect branch into direct
 	   branch.  */
-	callq __libc_start_main@plt(%rip)
+	callq __libc_start_main
 
 	hlt			/* Crash if somehow `exit' does return.	 */
 
@@ -126,3 +117,4 @@ __data_start:
 	.long 0
 	.weak data_start
 	data_start = __data_start
+

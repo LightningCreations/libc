@@ -1,23 +1,42 @@
 ENTRY(_start)
 
+PHDRS{
+    header PT_PHDR;
+    text PT_LOAD;
+    data PT_LOAD;
+    tls PT_TLS;
+    dynamic PT_DYNAMIC;
+}
+
 SECTIONS {
-    . = 0x7f00000000;
-    .text : {
+    .text : AT(.){
         *(.text);
-    }
-    .rodata : {
+    } :text
+    .rodata : AT(ADDR(.text) + SIZEOF(.text)){
         *(.rodata);
     }
-
     . = . + 0x1000;
     .data : {
         *(.data);
-    }
-    .dynamic : {
+    } :data
+    .dynamic : AT(ADDR(.data)+SIZEOF(.data)){
+        _DYNAMIC = .;
         *(.dynamic);
-    }
+    } :dynamic :data
+
     .bss : {
         *(.bss);
         *(COMMON);
-    }
+    } :NONE
+
+    .tbss : {
+        *(.tbss);
+    } :tls
+    .tdata : {
+        *(.tdata);
+    } :tls :data
+
+    .got : {
+        *(.got);
+    } :data
 }
