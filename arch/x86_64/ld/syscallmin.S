@@ -7,7 +7,7 @@
 read:
     mov $__NR_read,%rax
     syscall
-    ret ; No need to deal with __errno
+    ret
 
 open:
     mov $__NR_open,%rax

@@ -95,10 +95,10 @@ _start:
 	pushq %rsp
 
 	/* Pass address of our own entry points to .fini and .init.  */
-	mov __libc_csu_fini@GOTPCREL(%rip), %r8
-    mov __libc_csu_init@GOTPCREL(%rip), %rcx
+	lea __libc_csu_fini, %r8
+    lea __libc_csu_init, %rcx
 
-	mov main@GOTPCREL(%rip), %rdi
+	lea main, %rdi
 	/* Call the user's main function, and exit with its value.
 	   But let the libc call main.  Since __libc_start_main in
 	   libc.so is called very early, lazy binding isn't relevant
