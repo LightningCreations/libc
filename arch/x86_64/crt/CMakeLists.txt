@@ -21,4 +21,5 @@ set_property(TARGET crt PROPERTY IMPORTED_OBJECTS
         ${CMAKE_CURRENT_BINARY_DIR}/crti.o)
 add_dependencies(crt crt_build)
 
-install(FILES $<TARGET_OBJECTS:crt> DESTINATION lib)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/crt1.o
+        ${CMAKE_CURRENT_BINARY_DIR}/crti.o TYPE LIB)

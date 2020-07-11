@@ -94,11 +94,12 @@ _start:
 	   which grow downwards).  */
 	pushq %rsp
 
-	/* Pass address of our own entry points to .fini and .init.  */
-	lea __libc_csu_fini, %r8
-    lea __libc_csu_init, %rcx
 
-	lea main, %rdi
+	/* Pass address of our own entry points to .fini and .init.  */
+	lea __libc_csu_fini(%rip), %r8
+    lea __libc_csu_init(%rip), %rcx
+
+	lea main(%rip), %rdi
 	/* Call the user's main function, and exit with its value.
 	   But let the libc call main.  Since __libc_start_main in
 	   libc.so is called very early, lazy binding isn't relevant
@@ -106,7 +107,7 @@ _start:
 	   to PLT slot.  In case of static executable, ld in binutils
 	   2.26 or above can convert indirect branch into direct
 	   branch.  */
-	callq __libc_start_main
+	call __libc_start_main
 
 	hlt			/* Crash if somehow `exit' does return.	 */
 
