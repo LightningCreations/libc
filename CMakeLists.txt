@@ -1,5 +1,6 @@
 
-enable_language(C)
+project(lclibc C)
+
 
 enable_testing()
 
