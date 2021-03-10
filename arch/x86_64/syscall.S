@@ -13,13 +13,15 @@ syscall:
     mov %r9,%r8
     mov 8(%rsp),%r9
     syscall
-    mov %rax,%rdi
+    test %rax,%rax
     js .seterrno
     ret
     .seterrno:
-    mov __errno@GOTPCREL(%rip), %rsi
-    neg %rdi
-    mov %rdi,(%rsi)
+    mov %rax,%rcx
+    leaq __errno@tlsgd(%rip),%rdi
+    callq *__tls_get_addr@plt(%rip)
+    neg %rcx
+    mov %rcx,(%rax)
     ret
 
 .global _Exit

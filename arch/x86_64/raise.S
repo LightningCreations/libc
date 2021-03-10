@@ -13,13 +13,15 @@ raise:
     mov %rax,%rdi
     mov $__NR_tkill,%rax
     syscall
-    mov %rax,%rdi
+    test %rax,%rax
     js .set_errno
     ret
     .set_errno:
-    mov __errno@GOTPCREL(%rip), %rsi
-    neg %rdi
-    mov %rdi,(%rsi)
+    mov %rax,%rcx
+    leaq __errno@tlsgd(%rip),%rdi
+    callq *__tls_get_addr@plt(%rip)
+    neg %rcx
+    mov %rcx,(%rax)
     ret
 
 abort:
