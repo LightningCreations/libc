@@ -2,7 +2,7 @@ ENTRY(_start)
 
 PHDRS{
     headers PT_PHDR PHDRS ;
-    text PT_LOAD;
+    text PT_LOAD FILEHDR PHDRS;
     data PT_LOAD;
     tls PT_TLS;
     dynamic PT_DYNAMIC;
