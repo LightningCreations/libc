@@ -10,14 +10,14 @@ include_directories(SYSTEM include arch/${LCNIX_TARGET_ARCH}/include)
 option(LCNIX_LIBC_NOSHARED "Disable Shared Libraries for libc/libm. This also prevents the building of the dynamic (runtime) linker" OFF)
 
 if(LCNIX_LIBC_NOSHARED)
-    message(INFO "Shared Libraries Disabled")
+    message(STATUS "Shared Libraries Disabled")
     set(LCNIX_LIBC_ENABLE_SHARED_INIT OFF)
 else()
-    message(INFO "Shared Libraries Enabled")
+    message(STATUS "Shared Libraries Enabled")
     set(LCNIX_LIBC_ENABLE_SHARED_INIT ON)
 endif()
 
-option(LCNIX_LIBC_ENABLE_SHARED "Enables or disables shared libraries for libc. Note that setting this option to OFF does not disable the dynamic (runtime) linker" ${LCNIX_ENABLE_SHARED_INIT})
+option(LCNIX_LIBC_ENABLE_SHARED "Enables or disables shared libraries for libc. Note that setting this option to OFF does not disable the dynamic (runtime) linker" ${LCNIX_LIBC_ENABLE_SHARED_INIT})
 
 add_subdirectory(arch/${LCNIX_TARGET_ARCH})
 add_subdirectory(common)
