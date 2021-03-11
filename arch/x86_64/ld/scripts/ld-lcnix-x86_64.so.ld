@@ -9,17 +9,17 @@ PHDRS{
 }
 
 SECTIONS {
-    .text : AT(.){
+    .text : {
         *(.text);
     } :text
-    .rodata : AT(ADDR(.text) + SIZEOF(.text)){
+    .rodata : {
         *(.rodata);
     }
-    . = . + 0x1000;
-    .data : {
+    . = .;
+    .data ALIGN(1024) : {
         *(.data);
     } :data
-    .dynamic : AT(ADDR(.data)+SIZEOF(.data)){
+    .dynamic :{
         _DYNAMIC = .;
         *(.dynamic);
     } :dynamic :data
@@ -27,13 +27,15 @@ SECTIONS {
     .bss : {
         *(.bss);
         *(COMMON);
-    } :NONE
+    } :data
+
+    
+    .tdata : {
+        *(.tdata);
+    } :tls :data
 
     .tbss : {
         *(.tbss);
-    } :tls
-    .tdata : {
-        *(.tdata);
     } :tls :data
 
     .got : {
