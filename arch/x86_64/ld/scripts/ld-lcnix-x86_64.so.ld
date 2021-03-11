@@ -1,7 +1,7 @@
 ENTRY(_start)
 
 PHDRS{
-    header PT_PHDR;
+    headers PT_PHDR PHDRS ;
     text PT_LOAD;
     data PT_LOAD;
     tls PT_TLS;
@@ -9,6 +9,7 @@ PHDRS{
 }
 
 SECTIONS {
+    . = SIZEOF_HEADERS;
     .text : {
         *(.text);
     } :text
