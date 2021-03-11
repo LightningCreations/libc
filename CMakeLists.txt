@@ -39,7 +39,5 @@ if(LCNIX_LIBC_ENABLE_SHARED)
     install(TARGETS c-shared)
 endif()
 
-set_target_properties(c-static PROPERTIES OUTPUT_NAME c POSITION_INDEPENDENT_CODE ON)
-
 install(TARGETS c-static)
 install(DIRECTORY include/ TYPE INCLUDE FILES_MATCHING PATTERN "*.h")
