@@ -28,13 +28,13 @@ _Noreturn void __libc_start_main(int(*main)(int,char**,char**),int argc,char** a
         void* stack_end){
     char** envp = &argv[argc+1];
     __environ = envp;
-    void* dso_base = 0; // Set this up later
     if(_init)
         _init();
     __cxa_at_exit((void(*)(void*))_fini,0,0);
     // For now, we don't need to deal with _rtld_fini
     // FIXME when called from a dso how the heck do we get the dso base address to pass to __cxa_at_exit
-    __cxa_at_exit((void(*)(void*))_rtld_fini,0,dso_base);
+    // __dso_handle
+    __cxa_at_exit((void(*)(void*))_rtld_fini,0,0);
     int code = main(argc,argv,envp);
     // if(__base_exception_block._has_except) {
     //     if(!&__terminate_fn||!__terminate_fn)

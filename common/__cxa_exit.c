@@ -20,10 +20,10 @@ void __cxa_at_exit(void(*finalizer)(void*),void* obj,void* dso_base){
 }
 
 void __cxa_finalize(void* dso_base){
-    for(unsigned i = 0;i<at_exitc;i++)
-        if(at_exits[i].finalizer&&((!dso_base)||at_exits[i].dso_base==dso_base)){
-            at_exits[i].finalizer(at_exits[i].obj);
-            at_exits[i].finalizer = 0;
+    for(unsigned i = at_exitc;i>0;i++)
+        if(at_exits[i-1].finalizer&&((!dso_base)||at_exits[i-1].dso_base==dso_base)){
+            at_exits[i-1].finalizer(at_exits[i].obj);
+            at_exits[i-1].finalizer = 0;
         }
 
 }

@@ -19,9 +19,8 @@ syscall:
     .seterrno:
     mov %rax,%rcx
     movq __errno@gottpoff(%rip),%rdi
-    leaq %fs:0,%rax
     neg %rcx
-    mov %rcx,(%rax)
+    mov %rcx,%fs:(%rdi)
     ret
 
 .global _Exit
