@@ -14,4 +14,6 @@ void _Exit(int code) __attribute__((noreturn));
 
 void exit(int code) __attribute__((noreturn));
 
+void abort() __attribute__((noreturn));
+
 #endif //LCNIX_STDLIB_H
