@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 project(lclibc C)
 
 enable_testing()
+add_subdirectory(test)
 
 set(LCNIX_TARGET_ARCH ${CMAKE_SYSTEM_PROCESSOR} CACHE STRING "Sets the architecture to target with the lcnix build. This is an advanced operation. When cross-compiling you should use a Cross-compilation script that sets CMAKE_SYSTEM_PROCESSOR")
 
