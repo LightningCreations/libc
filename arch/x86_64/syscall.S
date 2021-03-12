@@ -18,8 +18,8 @@ syscall:
     ret
     .seterrno:
     mov %rax,%rcx
-    leaq __errno@tlsgd(%rip),%rdi
-    callq *__tls_get_addr@plt(%rip)
+    movq __errno@gottpoff(%rip),%rdi
+    leaq %fs:0,%rax
     neg %rcx
     mov %rcx,(%rax)
     ret

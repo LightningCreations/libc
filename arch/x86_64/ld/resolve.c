@@ -13,4 +13,5 @@ void* resolve_symbol(struct DsoInfo* info,unsigned int u){
 
         }
     }
+    return 0;
 }
