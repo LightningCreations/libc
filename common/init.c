@@ -36,11 +36,11 @@ _Noreturn void __libc_start_main(int(*main)(int,char**,char**),int argc,char** a
     // FIXME when called from a dso how the heck do we get the dso base address to pass to __cxa_at_exit
     __cxa_at_exit((void(*)(void*))_rtld_fini,0,dso_base);
     int code = main(argc,argv,envp);
-    if(__base_exception_block._has_except) {
-        if(!&__terminate_fn||!__terminate_fn)
-            abort();
-        else
-            __terminate_fn();
-    }
+    // if(__base_exception_block._has_except) {
+    //     if(!&__terminate_fn||!__terminate_fn)
+    //         abort();
+    //     else
+    //         __terminate_fn();
+    // }
     exit(code);
 }
