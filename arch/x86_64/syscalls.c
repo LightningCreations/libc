@@ -60,7 +60,7 @@ int brk(void* brk){
     :"=r"(v):"r"(brk):"memory");
     if(v<0){
         __errno = -v;
-        return 0;
+        return -1;
     }
     __brk_val = brk;
     return v;

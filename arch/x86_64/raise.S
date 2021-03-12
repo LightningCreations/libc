@@ -22,7 +22,3 @@ raise:
     neg %rcx
     mov %rcx,%fs:(%rdi)
     ret
-
-abort:
-    mov $SIGABRT,%rax
-    jmp raise
